@@ -30,9 +30,7 @@ wss.on('connection', (ws) => {
   console.log('Client connected');
 
   let numClients = wss.clients.size;
-  wss.clients.forEach(function(client) {
-    client.send(JSON.stringify({type: "incomingUsers", users: numClients}));
-  });
+  sendAllClients({type: "incomingUsers", users: numClients});
 
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
@@ -49,17 +47,13 @@ wss.on('connection', (ws) => {
       default:
         console.log("Unknown event type: " +  parsedMessage.type);
     }
-    wss.clients.forEach(function(client) {
-      client.send(JSON.stringify(parsedMessage));
-    });
+    sendAllClients(parsedMessage);
   });
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => {
     console.log('Client disconnected');
     let numClients = wss.clients.size;
-    wss.clients.forEach(function(client) {
-      client.send(JSON.stringify({type: "incomingUsers", users: numClients}));
-    });
+    sendAllClients({type: "incomingUsers", users: numClients});
   });
 });
