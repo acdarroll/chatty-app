@@ -1,7 +1,7 @@
 Chatty App
 =====================
 
-Basic chat app that uses websockets and React and
+Basic chat app that uses websockets and React
 
 ### Screenshots
 
@@ -47,6 +47,15 @@ npm start-websockets
 Navigate to `localhost:3000`;
 
 ### Dependencies
+
+Websockets
+
+* Node
+* Express
+* UUID - for unique ids
+* ws - websockets
+
+Webpack
 
 * React
 * React-DOM
