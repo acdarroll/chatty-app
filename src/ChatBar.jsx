@@ -6,26 +6,26 @@ class ChatBar extends Component {
     this.state = {
       input: "",
       username: this.props.currentUser.name
-    }
+    };
   }
   // Change username or add message depending on the input the event handler is on
   sendValue(type) {
     if(type === "input") {
-      this.props.addMessage(this.state.input)
+      this.props.addMessage(this.state.input);
       this.setState({input: ""});
     } else {
-      this.props.addUsername(this.state.username)
+      this.props.addUsername(this.state.username);
     }
   }
   render() {
     const onChange = type => e => {
-      this.setState({[type]: e.target.value})
-    }
+      this.setState({[type]: e.target.value});
+    };
     const onKeypress = type => e => {
       if(e.key === "Enter") {
         this.sendValue(type);
       }
-    }
+    };
     return (
       <footer className="chatbar">
         <input
