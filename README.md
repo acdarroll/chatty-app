@@ -5,11 +5,11 @@ Basic chat app that uses websockets and React
 
 ### Screenshots
 
-!["Homepage"]()
+!["Homepage"](https://github.com/acdarroll/chatty-app/blob/master/docs/homepage.png?raw=true)
 
-!["Sending messages"]()
+!["Sending messages"](https://github.com/acdarroll/chatty-app/blob/master/docs/messages.png?raw=true)
 
-!["Sending multiple images"]()
+!["Sending multiple images"](https://github.com/acdarroll/chatty-app/blob/master/docs/images-messages.png?raw=true)
 
 ### Getting Started
 
