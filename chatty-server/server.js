@@ -68,10 +68,11 @@ wss.on('connection', (ws) => {
     switch(parsedMessage.type) {
       case "postMessage":
         // Save any urls as another property if they exist
-        let url = parsedMessage.content.match(/http\S*[(jpg)(png)(gif)(jpeg)]/g);
+        let url = parsedMessage.content.match(/http\S+(jpg|png|gif|jpeg)/g);
+        console.log("Matches", url);
         if(url && url.length > 0) {
           parsedMessage.urls = url;
-          parsedMessage.content = parsedMessage.content.replace(/http\S*[(jpg)(png)(gif)(jpeg)]?/g, "");
+          parsedMessage.content = parsedMessage.content.replace(/http\S+(jpg|png|gif|jpeg)/g, "");
         }
         parsedMessage.type = "incomingMessage";
         break;

@@ -5,8 +5,8 @@
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
     "start": "node server.js",
-    "start-webpack": "node server.js",
-    "start-websockets": "node chatty-server/server.js"
+    "webpack": "node server.js",
+    "websockets": "node chatty-server/server.js"
   },
   "repository": {
     "type": "git",

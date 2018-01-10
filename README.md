@@ -40,8 +40,8 @@ cd ..
 Run the server from the project root:
 
 ```
-npm start-webpack
-npm start-websockets
+npm start
+npm run websockets
 ```
 
 Navigate to `localhost:3000`;
