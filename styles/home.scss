@@ -10,10 +10,6 @@ body {
   margin: 70px 0;
 }
 
-.navbar-users{
-  float: right;
-}
-
 .chatbar {
   background: tomato;
   border-top: 1px solid black;
@@ -48,9 +44,22 @@ body {
   padding: 5px;
 }
 
+.message-format {
+  display: flex;
+  flex-direction: column;
+  flex: 8;
+}
+
 .message.system {
   font-style: italic;
   padding: 5px 20px;
+}
+
+.message-image {
+  max-width: 60vw;
+  height: auto;
+  display: block;
+  align-self: flex-start;
 }
 
 .message-content,
@@ -60,13 +69,14 @@ body {
   padding: 0 10px;
 }
 
-.message-content {
-  flex: 8;
-}
-
 .message-username {
   flex: 2;
   font-weight: 700;
+}
+
+.navbar-users{
+  float: right;
+  vertical-align: center;
 }
 
 .navbar {

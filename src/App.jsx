@@ -8,7 +8,7 @@ class NavBar extends Component {
     return (
       <nav className="navbar">
         <a href="/" className="navbar-brand">Chatty</a>
-        <p className="navbar-users">{this.props.users} users online</p>
+        {this.props.users && <p className="navbar-users">{this.props.users} users online</p>}
       </nav>
     );
   }
@@ -20,7 +20,8 @@ class App extends Component {
     this.state = {
       currentUser: {name: "Bob"},
       messages: [],
-      users: 1
+      users: null,
+      color: null
     }
     this.addMessage = this.addMessage.bind(this);
     this.addUsername = this.addUsername.bind(this);
@@ -37,6 +38,7 @@ class App extends Component {
     this.socket.onmessage = event => {
       let data = JSON.parse(event.data)
       let messages = [];
+      console.log("Response:", data)
 
       switch (data.type) {
         case "incomingMessage":
@@ -48,7 +50,10 @@ class App extends Component {
           this.setState({messages})
           break;
         case "incomingUsers":
-          this.setState({users: data.users})
+          this.setState({users: data.users});
+          break;
+        case "incomingColor":
+          this.setState({color: data.color});
           break;
         default:
           throw new Error("Unknown event type: " + data.type)
@@ -63,7 +68,7 @@ class App extends Component {
     this.socket.send(JSON.stringify(user))
   }
   addMessage(content) {
-    let newMessage = {type: "postMessage", username: this.state.currentUser.name, content}
+    let newMessage = {type: "postMessage", username: this.state.currentUser.name, content, color: this.state.color}
     this.socket.send(JSON.stringify(newMessage))
   }
   render() {

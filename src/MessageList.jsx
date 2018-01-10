@@ -23,13 +23,11 @@ class MessageSystem extends Component {
 
 class MessageList extends Component {
   render () {
-    console.log(this.props.messages)
-    const messages = this.props.messages.map(message => {
-      let formattedMessage = message.type === "incomingMessage" ?
-        <Message username={message.username} content={message.content} key={message.id}/> :
+    const messages = this.props.messages.map(message =>
+      message.type === "incomingMessage" ?
+        <Message username={message.username} urls={message.urls} color={message.color} content={message.content} key={message.id}/> :
         <MessageSystem oldUsername={message.oldUsername} newUsername={message.newUsername} key={message.id}/>
-      return formattedMessage;
-    })
+    )
     return (
       <main className="messages">
         {messages}
