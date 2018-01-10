@@ -66,7 +66,6 @@ wss.on('connection', (ws) => {
           parsedMessage.urls = url;
           parsedMessage.content = parsedMessage.content.replace(/http\S*[(jpg)(png)(gif)(jpeg)]?/g, "");
         }
-        console.log("Urls:", parsedMessage.urls);
         parsedMessage.type = "incomingMessage";
         break;
       case "postNotification":

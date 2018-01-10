@@ -4,7 +4,6 @@ import ChatBar from "./ChatBar.jsx";
 
 class NavBar extends Component {
   render() {
-    console.log("Rendering <NavBar/>")
     return (
       <nav className="navbar">
         <a href="/" className="navbar-brand">Chatty</a>
@@ -27,18 +26,11 @@ class App extends Component {
     this.addUsername = this.addUsername.bind(this);
   }
   componentDidMount() {
-    console.log("componentDidMount <App />");
-
     this.socket = new WebSocket("ws://localhost:3001")
-
-    this.socket.onopen = function(event) {
-      console.log("Connected to server")
-    }
 
     this.socket.onmessage = event => {
       let data = JSON.parse(event.data)
       let messages = [];
-      console.log("Response:", data)
 
       switch (data.type) {
         case "incomingMessage":
@@ -72,7 +64,6 @@ class App extends Component {
     this.socket.send(JSON.stringify(newMessage))
   }
   render() {
-    console.log("Rendering <App/>")
     return (
       <div>
         <NavBar users={this.state.users}/>

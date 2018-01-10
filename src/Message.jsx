@@ -2,7 +2,6 @@ import React, {Component} from "react";
 
 class Message extends Component {
   render() {
-    console.log("Urls:", this.props.urls)
     return (
       <div className="message">
         <span className="message-username" style={{color: this.props.color}}>{this.props.username}</span>
