@@ -21,12 +21,15 @@ const wss = new SocketServer({ server });
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
 
+
+// Helper Functions
 const randomColor = () => {
   let colors = ["red", "purple", "blue", "orange"];
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
-const sendAllClients = data => {
+
+wss.broadcast = data => {
   wss.clients.forEach(client => {
     if(client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify(data));
@@ -46,9 +49,12 @@ const assignColor = (ws) => {
 wss.on('connection', (ws) => {
   console.log('Client connected');
 
+  // Assign a random color to the connection
   assignColor(ws);
   let numClients = wss.clients.size;
-  sendAllClients({type: "incomingUsers", users: numClients});
+
+  // Broadcast the current number of connections to all clients
+  wss.broadcast({type: "incomingUsers", users: numClients});
 
   ws.on('error', error => {
     console.log("An error occured:", error);
@@ -61,6 +67,7 @@ wss.on('connection', (ws) => {
     parsedMessage.id = uuidv4();
     switch(parsedMessage.type) {
       case "postMessage":
+        // Save any urls as another property if they exist
         let url = parsedMessage.content.match(/http\S*[(jpg)(png)(gif)(jpeg)]/g);
         if(url && url.length > 0) {
           parsedMessage.urls = url;
@@ -74,13 +81,15 @@ wss.on('connection', (ws) => {
       default:
         console.log("Unknown event type: " +  parsedMessage.type);
     }
-    sendAllClients(parsedMessage);
+    wss.broadcast(parsedMessage);
   });
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => {
     console.log('Client disconnected');
+
+    // Broadcast the current number of connections to all clients
     let numClients = wss.clients.size;
-    sendAllClients({type: "incomingUsers", users: numClients});
+    wss.broadcast({type: "incomingUsers", users: numClients});
   });
 });

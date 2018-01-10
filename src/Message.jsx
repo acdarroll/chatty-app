@@ -1,17 +1,25 @@
 import React, {Component} from "react";
 
-class Message extends Component {
-  render() {
-    return (
-      <div className="message">
-        <span className="message-username" style={{color: this.props.color}}>{this.props.username}</span>
-        <div className="message-format">
-          {this.props.content && <span className="message-content">{this.props.content}</span>}
-          {this.props.urls && this.props.urls.map((url, i) => <img key={i} className="message-image" src={url}/>)}
-        </div>
+// Messages functional component
+function Message({color, username, content, urls}){
+  return (
+    <div className="message">
+      <span className="message-username" style={{color: color}}>{username}</span>
+      <div className="message-format">
+        {content && <span className="message-content">{content}</span>}
+        {urls && urls.map((url, i) => <img key={i} className="message-image" src={url}/>)}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export default Message;
+// Notifications functional component
+function MessageSystem({oldUsername, newUsername}){
+  return (
+    <div className="message system">
+      {oldUsername} changed their name to {newUsername}.
+    </div>
+  );
+}
+
+export {Message, MessageSystem};

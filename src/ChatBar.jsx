@@ -8,6 +8,7 @@ class ChatBar extends Component {
       username: this.props.currentUser.name
     }
   }
+  // Change username or add message depending on the input the event handler is on
   sendValue(type) {
     if(type === "input") {
       this.props.addMessage(this.state.input)

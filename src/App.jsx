@@ -51,7 +51,6 @@ class App extends Component {
           throw new Error("Unknown event type: " + data.type)
           break;
       }
-
     }
   }
   addUsername(name) {
