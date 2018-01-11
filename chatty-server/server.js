@@ -47,7 +47,6 @@ const assignColor = (ws) => {
 };
 
 wss.on('connection', (ws) => {
-  console.log('Client connected');
 
   // Assign a random color to the connection
   assignColor(ws);
@@ -61,7 +60,6 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
 
     let parsedMessage = JSON.parse(message);
     parsedMessage.id = uuidv4();
@@ -69,7 +67,6 @@ wss.on('connection', (ws) => {
       case "postMessage":
         // Save any urls as another property if they exist
         let url = parsedMessage.content.match(/http\S+(jpg|png|gif|jpeg)/g);
-        console.log("Matches", url);
         if(url && url.length > 0) {
           parsedMessage.urls = url;
           parsedMessage.content = parsedMessage.content.replace(/http\S+(jpg|png|gif|jpeg)/g, "");
@@ -87,7 +84,6 @@ wss.on('connection', (ws) => {
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => {
-    console.log('Client disconnected');
 
     // Broadcast the current number of connections to all clients
     let numClients = wss.clients.size;
