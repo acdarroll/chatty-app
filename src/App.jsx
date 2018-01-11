@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import MessageList from "./MessageList.jsx";
-import ChatBar from "./ChatBar.jsx";
+import React, {Component} from 'react';
+import MessageList from './MessageList.jsx';
+import ChatBar from './ChatBar.jsx';
 
 class NavBar extends Component {
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name: "Anonymous"},
+      currentUser: {name: 'Anonymous'},
       messages: [],
       users: null,
       color: null
@@ -26,40 +26,39 @@ class App extends Component {
     this.addUsername = this.addUsername.bind(this);
   }
   componentDidMount() {
-    this.socket = new WebSocket("ws://localhost:3001")
+    this.socket = new WebSocket('ws://localhost:3001')
 
     this.socket.onmessage = event => {
       let data = JSON.parse(event.data)
       let messages = [];
 
       switch (data.type) {
-        case "incomingMessage":
+        case 'incomingMessage':
           messages = this.state.messages.concat(data);
           this.setState({messages})
           break;
-        case "incomingNotification":
+        case 'incomingNotification':
           messages = this.state.messages.concat(data);
           this.setState({messages})
           break;
-        case "incomingUsers":
+        case 'incomingUsers':
           this.setState({users: data.users});
           break;
-        case "incomingColor":
+        case 'incomingColor':
           this.setState({color: data.color});
           break;
         default:
-          throw new Error("Unknown event type: " + data.type)
-          break;
+          throw new Error('Unknown event type: ' + data.type);
       }
     }
   }
   addUsername(name) {
-    let user = {type: "postNotification", oldUsername: this.state.currentUser.name, newUsername: name}
+    let user = {type: 'postNotification', oldUsername: this.state.currentUser.name, newUsername: name}
     this.setState({currentUser: {name}})
     this.socket.send(JSON.stringify(user))
   }
   addMessage(content) {
-    let newMessage = {type: "postMessage", username: this.state.currentUser.name, content, color: this.state.color}
+    let newMessage = {type: 'postMessage', username: this.state.currentUser.name, content, color: this.state.color}
     this.socket.send(JSON.stringify(newMessage))
   }
   render() {

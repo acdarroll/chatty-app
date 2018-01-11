@@ -37,12 +37,7 @@ npm install
 cd ..
 ```
 
-Run the server from the project root:
-
-```
-npm start
-npm run websockets
-```
+Run the server from the project root by running `npm start` then opening another command line window and running `npm run websockets`
 
 Navigate to `localhost:3000`;
 

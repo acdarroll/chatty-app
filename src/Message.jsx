@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from 'react';
 
 // Messages functional component
 function Message({color, username, content, urls}){
