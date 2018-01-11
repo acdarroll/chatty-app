@@ -53,6 +53,9 @@ class App extends Component {
     }
   }
   addUsername(name) {
+    if(name === this.state.currentUser.name) {
+      return;
+    }
     let user = {type: 'postNotification', oldUsername: this.state.currentUser.name, newUsername: name}
     this.setState({currentUser: {name}})
     this.socket.send(JSON.stringify(user))
